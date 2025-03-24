@@ -1,18 +1,13 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+require('dotenv').config();
 require('./config/database');
-const transactionRouter = require('./routes/transactionRouter');
-
-const PORT = 7496;
 const app = express();
+app.use(bodyParser.json());
 
-app.use(express.json());
-app.use('/api/v1/', transactionRouter);
+// Import Fincras routes (we’ll create these next)
+const fincraRoutes = require('./routes/transactionRouter');
+app.use('/api/fincras', fincraRoutes);
 
-app.get('/', (req, res) => {
-    res.send('API is running...');
-});
-app.listen(PORT, ()=>{
-    console.log(`Server is listening to PORT ${PORT}`)
-})
-
- 
+const PORT = process.env.PORT || 9875;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`)); 

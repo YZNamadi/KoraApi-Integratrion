@@ -11,4 +11,4 @@ mongoose.connect(DB)
     console.log(error);
 });
 
-module.exports= mongoose;
+module.exports= mongoose;   

@@ -1,9 +1,14 @@
-const { initializePayment }= require('../controllers/transactionController');
-const { verifyPayment }= require('../controllers/transactionController');
 const express = require('express');
-const Router = express.Router();
+const router = express.Router();
+const fincraController = require('../controllers/transactionController');
 
-Router.post('/initialize', initializePayment);
-Router.get('/verify', verifyPayment);
+// POST /api/fincras/initialize
+router.post('/initialize', fincraController.initializePayment);
 
-module.exports = Router;
+// GET /api/fincras/verify/:reference
+router.get('/verify/:reference', fincraController.verifyPayment);
+
+// POST /api/fincras/webhook
+router.post('/webhook', fincraController.handleWebhook);
+
+module.exports = router;
